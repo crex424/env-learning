@@ -19,18 +19,31 @@ int main()
 
     bn::fixed dy = 0;
     bn::fixed gravity = .03;
-
     bn::fixed jump_strength = 1.3;
 
     while (true)
     {
         if (bn::keypad::left_held())
         {
-            dot.set_x(dot.x() - speed);
+            if (dot.x() < -120)
+            {
+                dot.set_x(-119);
+            }
+            else
+            {
+                dot.set_x(dot.x() - speed);
+            }
         }
         if (bn::keypad::right_held())
         {
-            dot.set_x(dot.x() + speed);
+            if (dot.x() > 120)
+            {
+                dot.set_x(119);
+            }
+            else
+            {
+                dot.set_x(dot.x() + speed);
+            }
         }
         if (bn::keypad::a_pressed())
         {
@@ -38,9 +51,7 @@ int main()
         }
 
         dy += gravity;
-
         dot.set_y(dot.y() + dy);
-
         if (dot.y() > FLOOR)
         {
             dot.set_y(FLOOR);
